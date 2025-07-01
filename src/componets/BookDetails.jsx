@@ -26,11 +26,11 @@ const BookDetails = () => {
             title: selectedBook.title,
             author: selectedBook.author
           })
-        ,},[]);
+        });
 
         const data = await response.json();
-         console.log(data);
-        // Expecting: [{ title: '...', author: '...' }, ...]
+        console.log('AI Suggestions:', data);
+
         if (Array.isArray(data)) {
           setAiSuggestions(data);
         } else {
@@ -44,7 +44,7 @@ const BookDetails = () => {
     };
 
     getSuggestions();
-  }, [selectedBook]);
+  }, []);
 
   if (!selectedBook) {
     return <div className="p-6 text-center text-red-600 text-xl">Book not found.</div>;
@@ -63,6 +63,7 @@ const BookDetails = () => {
         Go back
       </button>
 
+      {/* Book Info */}
       <h1 className="text-3xl font-bold mb-4 text-blue-800">{selectedBook.title}</h1>
       <p className="text-gray-700"><strong>Author:</strong> {selectedBook.author}</p>
       <p className="text-gray-700"><strong>Genre:</strong> {selectedBook.genre}</p>
@@ -71,7 +72,7 @@ const BookDetails = () => {
         <p className="text-gray-700 mt-4"><strong>Description:</strong> {selectedBook.description}</p>
       )}
 
-      {/* 🔁 Same Genre Recommendations */}
+      {/* Same Genre Recommendations */}
       {recommendedBooks.length > 0 && (
         <>
           <h2 className="text-2xl font-semibold mt-8 mb-4">Recommended Books (Same Genre)</h2>
@@ -90,7 +91,7 @@ const BookDetails = () => {
         </>
       )}
 
-      {/* 🤖 AI Recommendations */}
+      {/* AI Recommendations */}
       <div className="mt-12">
         <h2 className="text-2xl font-semibold mb-4">🤖 AI Recommendations</h2>
         {loading ? (
